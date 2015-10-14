@@ -1,24 +1,31 @@
 <?php
-
 /**
  * Description of Files
  *
  * @author Martin
  */
 class Files {
+    
+    const NOTOCAR = 0, RENOMBRAR = 1, BORRAR = 2;
 
+    private $files;
     private $name;
     private $ruta;
-    private $max_size;
+    private $max_size = 4096;
+    private $op;
     private $tipo;
     private $error;
 
-    function __construct($name = array(), $ruta = NULL, $max_size = NULL, $tipo = NULL) {
+    function __construct($param, $name = array(), $ruta = NULL, $op = 0,$tipo = NULL) {
+        $this->files = $_FILES[$param];
         $this->name = $name;
         $this->ruta = $ruta;
-        $this->max_size = $max_size;
         $this->tipo = $tipo;
         $this->error = array();
+    }
+    
+    private static function fileSize($param) {
+        return $param['size'];
     }
 
     public function getName() {
@@ -65,7 +72,7 @@ class Files {
         for ($i = 0; $i < count($this->name); $i++){
             
         }
-        return self::$error;
+        return $this->$error;
     }
 
     private function filesArray($param) {
